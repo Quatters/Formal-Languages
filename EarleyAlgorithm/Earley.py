@@ -93,6 +93,6 @@ class Earley:
 
         for situation in self.situations_dict[len(self.word)]:
             if situation.input == 'S#' and situation.output == 'S' and situation.ind == 0 and situation.point == 1:
-                return 'YES'
+                return True
 
-        return 'NO'
+        return False
