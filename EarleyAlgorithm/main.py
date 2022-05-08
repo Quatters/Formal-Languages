@@ -1,28 +1,26 @@
+import json
 from Earley import Earley
 from Rule import Rule
 
+def main() -> None:
+    file = open('grammar.json', 'r')
 
-def main():
+    data = json.load(file)
 
-    print('Введите кол-во правил в грамматике\n')
-    n = int(input())
-
-    print('Введите правила грамматики в формате S -> aB\n')
     rules = []
-    for i in range(0, n):
-        s = input()
-        parts = s.split(' ')
-        rules.append(Rule(parts[0], parts[2]))
-    rules.append(Rule('S#', 'S'))
+    for raw_rule in data['rules']:
+        exploded_rule = raw_rule.split(' ')
+        rules.append(Rule(exploded_rule[0], exploded_rule[2]))
 
-    print('Введите слово, которое нужно распознать\n')
-    word = input()
+    earley = Earley(word=data['check'], rules=rules)
 
-    earley = Earley(word)
-    for rule in rules:
-        earley.add_rule(rule)
+    print('Правила:')
+    print('\n'.join(map(str, earley.rules)))
 
-    print('Answer: ', earley.get_answer())
+    answer = 'принадлежит' if earley.get_answer() else 'НЕ принадлежит';
+    print(f'\nСлово {earley.word} {answer} языку.')
 
+    file.close()
 
-main()
+if __name__ == "__main__":
+    main()
