@@ -7,7 +7,7 @@ class Earley:
     situations_dict = {}  # словарь множеств ситуаций, situations_dict[i] - i-ое множество
     word = str  # слово, которое нужно распознать
 
-    def __init__(self, word):
+    def __init__(self, word, rules=None):
         # добавляем (S# -> .S; 0) в D[0], инициализируем все D[i]
         sit = Situation('S#', 'S', 0, 0)
         self.situations_dict[0] = set()
@@ -16,6 +16,8 @@ class Earley:
             self.situations_dict[i] = set()
 
         self.word = word
+        if rules is not None:
+            self.rules = rules
 
     # добавление правил грамматики
     def add_rule(self, rule):
