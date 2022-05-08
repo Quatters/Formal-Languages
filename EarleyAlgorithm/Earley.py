@@ -48,7 +48,7 @@ class Earley:
     # функция Scan
     def scan(self, list_number, symbol):
         for situation in self.situations_dict[list_number]:
-            if situation.output[situation.point] == symbol:
+            if situation.point < len(situation.output) and situation.output[situation.point] == symbol:
                 sit = Situation(situation.input, situation.output, situation.ind, situation.point + 1)
                 self.add_situation(sit, list_number + 1)
 
