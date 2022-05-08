@@ -1,9 +1,9 @@
-import json
+import json, os
 from Earley import Earley
 from Rule import Rule
 
 def main() -> None:
-    file = open('grammar.json', 'r')
+    file = open(os.path.dirname(os.path.realpath(__file__)) + '/grammar.json', 'r')
 
     data = json.load(file)
 
